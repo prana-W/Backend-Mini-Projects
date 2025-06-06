@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Error | Something went wrong</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e2f;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .error-container {
+            background-color: #2c2c3e;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .error-container h1 {
+            font-size: 2.5rem;
+            color: #f25f5c;
+            margin-bottom: 10px;
+        }
+
+        .error-container h2 {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: #d3d3d3;
+        }
+
+        .error-code {
+            font-size: 3rem;
+            color: #f5a623;
+        }
+
+        .btn-home {
+            margin-top: 25px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f25f5c;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background-color: #d04845;
+        }
+
+        @media (max-width: 500px) {
+            .error-container {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="error-container">
+    <h1>Error Encountered!</h1>
+
+    <% if (locals.errorObj) { %>
+        <h2 class="error-code"><%= errorObj.statusCode %></h2>
+        <h2><strong>Message:</strong> <%= errorObj.errorMessage %></h2>
+        <h2><strong>Error:</strong> <%= errorObj.err %></h2>
+    <% } else { %>
+        <h2 class="error-code">500</h2>
+        <h2>Something unexpected happened.</h2>
+    <% } %>
+    <a href="/" class="btn-home">Go Back Home</a>
+</div>
+
+</body>
+</html>

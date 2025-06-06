@@ -26,8 +26,10 @@ const messageSchema = new mongoose.Schema({
         default: 5
     },
     createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'User'
+        type: String,
+        required: true
     },
     accessedBy: [{
         type: mongoose.Schema.Types.ObjectId,

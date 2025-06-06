@@ -6,3 +6,5 @@ const {handleRootPage, handleLoginPage, handleSignupPage} = require('../controll
 router.get('/', handleRootPage)
 router.get('/user/login', handleLoginPage)
 router.get('/user/signup', handleSignupPage)
+
+module.exports = router
