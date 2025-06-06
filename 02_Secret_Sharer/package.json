@@ -1,0 +1,22 @@
+{
+  "name": "02_secret_sharer",
+  "version": "1.0.0",
+  "description": "- A simple secret sharing application that allows users to share secrets with others securely. - Users can create a secret message (that only, I-the developer, can read) and share it with others.        :) - Message can be encrypted and decrypted using a password (although, i won't need any of that)              ;) - Users can also set an expiration time for the secret message. - Also, user can set maximum number of views for the secret message, after which the message will be deleted from the database (in this case, I won't be able to read it anymore)               :(",
+  "license": "ISC",
+  "author": "Pranaw Kumar",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.15.1",
+    "nanoid": "^5.1.5",
+    "nodemon": "^3.1.10"
+  }
+}
