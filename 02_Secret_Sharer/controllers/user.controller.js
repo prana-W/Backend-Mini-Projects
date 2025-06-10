@@ -1,19 +1,26 @@
 const User = require('../models/user.model')
 const {encryptPassword, checkPassword} = require('../utils/bcrypt.util')
+const {setUser, getUser} = require('../services/auth.service')
+const {v4: uuidv4} = require('uuid');
 
 const handleSignupLogic = async (req, res) => {
     try {
 
-        if (!req.body || !req.body.username || !req.body.password || !req.body.password) {
+        if (!req.body || !req.body.username || !req.body.email || !req.body.password) {
             return res.status(400).render('signup.ejs', {
                 errorMess: 'Kindly enter all the fields!'
             })
         }
 
-        const hashedPassword = await encryptPassword(req.body?.password);
+        const hashedPassword = await encryptPassword(req.body.password);
 
-        await User.create({
-            username: req.body?.username, email: req.body?.email, password: hashedPassword
+        console.log(hashedPassword)
+        const user = await User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPassword,
+            createdSecretMessages: [],
+            receivedSecretMessages: []
         })
 
         return res.redirect('/user/login')
@@ -34,8 +41,12 @@ const handleLoginLogic = async (req, res) => {
             })
         }
 
-        if (await checkPassword()) {
-            //todo: store the state of the user and redirect to dashboard
+        const {isCorrectPassword, user} = await checkPassword(req.body?.email, req.body?.password);
+
+        if (isCorrectPassword) {
+            const sessionId = uuidv4();
+            res.cookie('uid', sessionId);
+            setUser(sessionId, user)
             return res.redirect('/user/dashboard')
         } else {
             return res.render('login.ejs', {

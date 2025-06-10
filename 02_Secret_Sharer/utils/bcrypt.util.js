@@ -6,13 +6,7 @@ const encryptPassword = async (password) => {
 
     try {
 
-        await bcrypt.hash(password, salt, (err, hash) => {
-            if (err) {
-                console.log('There was an error while hashing the password', err);
-                return err;
-            }
-            return hash;
-        })
+        return await bcrypt.hash(password, salt, cb)
 
     } catch (error) {
 
@@ -23,16 +17,19 @@ const encryptPassword = async (password) => {
 
 }
 
+// returns true and user if password matches, false and null otherwise
 const checkPassword = async (email, password) => {
     try {
 
         //todo: check if exec() is working fine
-        const user = await User.findOne({email}).exec()
+        const user = await User.findOne({email}) || null;
         if (!user) {
             throw new Error(`User doesn't exist: ${email}`);
         }
-        return await bcrypt.compare(password, user.password);
-
+        return {
+            isCorrectPassword: await bcrypt.compare(password, user.password),
+            user: user
+        };
     } catch (err) {
         return err;
     }
