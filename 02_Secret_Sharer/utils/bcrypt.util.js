@@ -6,7 +6,7 @@ const encryptPassword = async (password) => {
 
     try {
 
-        return await bcrypt.hash(password, salt, cb)
+        return await bcrypt.hash(password, salt)
 
     } catch (error) {
 

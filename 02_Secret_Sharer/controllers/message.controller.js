@@ -27,7 +27,7 @@ const handlePostMessage = async (req, res) => {
             createdBy: req.user?._id | Date.now()
         })
 
-        return res.res(200).redirect('/')
+        return res.status(200).redirect('/')
 
     } catch (err) {
         errorHandler(res, 400, 'Error while posting message', err);

@@ -1,6 +1,6 @@
 const User = require('../models/user.model')
 const {encryptPassword, checkPassword} = require('../utils/bcrypt.util')
-const {setUser, getUser} = require('../services/auth.service')
+const {setUser} = require('../services/auth.service')
 const {v4: uuidv4} = require('uuid');
 
 const handleSignupLogic = async (req, res) => {
@@ -15,7 +15,7 @@ const handleSignupLogic = async (req, res) => {
         const hashedPassword = await encryptPassword(req.body.password);
 
         console.log(hashedPassword)
-        const user = await User.create({
+        await User.create({
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
@@ -47,13 +47,12 @@ const handleLoginLogic = async (req, res) => {
             const sessionId = uuidv4();
             res.cookie('uid', sessionId);
             setUser(sessionId, user)
-            return res.redirect('/user/dashboard')
+            return res.redirect('/')
         } else {
             return res.render('login.ejs', {
                 errorMess: 'Invalid credentials! Please try again.'
             })
         }
-
 
     } catch (err) {
         return res.status(400).render('login.ejs', {
