@@ -1,6 +1,6 @@
-const errorHandler = require('../utils/errorHandler');
+const errorHandler = require('../utils/errorHandler.util');
 const Message = require('../models/message.model');
-const bcrypt = require('bcrypt');
+const {encryptPassword} = require('../utils/bcrypt.util');
 
 const handleMessagePage = async (req, res) => {
     try {
@@ -13,8 +13,11 @@ const handleMessagePage = async (req, res) => {
 }
 
 const handlePostMessage = async (req, res) => {
-    const hashedPassword = await bcrypt.hash(req.body?.password, 10)
+
     try {
+
+        const hashedPassword = await encryptPassword(req.body?.password);
+
         await Message.create({
             title: req.body?.title,
             message: req.body?.message,
@@ -24,7 +27,7 @@ const handlePostMessage = async (req, res) => {
             createdBy: req.user?._id | Date.now()
         })
 
-        return res.redirect('/')
+        return res.res(200).redirect('/')
 
     } catch (err) {
         errorHandler(res, 400, 'Error while posting message', err);

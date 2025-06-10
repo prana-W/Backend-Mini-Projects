@@ -1,4 +1,4 @@
-const errorHandler = (res, code = 69, message = 'Something went wrong!', error = 'idk') => {
+const errorHandlerUtil = (res, code = 69, message = 'Something went wrong!', error = 'idk') => {
     return res.render('errorPage', {
         errorObj : {
             statusCode: code,
@@ -8,4 +8,4 @@ const errorHandler = (res, code = 69, message = 'Something went wrong!', error =
     })
 }
 
-module.exports = errorHandler
+module.exports = errorHandlerUtil
