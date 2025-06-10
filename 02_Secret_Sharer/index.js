@@ -18,15 +18,13 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 // Middlewares
-app.use((req, res, next) => writeLog(res, req, next))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(cookieParser())
 
-// Routes
-app.use('/', getCurrentUser, staticRoutes)
+app.use('/', getCurrentUser, writeLog, staticRoutes)
 app.use('/message', restrictToLoggedInUserOnly, messageRoutes)
-app.use('/user', userRoutes) //todo: add a middleware to restrict access to logged in users only
+app.use('/user', userRoutes)
 
 // Starting the server and MongoDB connection
 app.listen(port, () => {

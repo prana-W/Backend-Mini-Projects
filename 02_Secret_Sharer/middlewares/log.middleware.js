@@ -22,9 +22,9 @@ const checkStatus = () => {
     })
 }
 
-const writeLog = (res, req, next) => {
+const writeLog = (req, res, next) => {
 
-    fs.appendFile('logs.txt', `Visited ${req.url} by ${req.user || 'Anonymous'} at ${new Date().toLocaleTimeString()}\n`, (err) => {
+    fs.appendFile('logs.txt', `Visited ${req.url} by ${req.user?.username || 'Anonymous'} at ${new Date().toLocaleTimeString()}\n`, (err) => {
         if (err) {
             console.error('Error writing to log file:', err);
         }

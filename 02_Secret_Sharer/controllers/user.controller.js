@@ -14,7 +14,6 @@ const handleSignupLogic = async (req, res) => {
 
         const hashedPassword = await encryptPassword(req.body.password);
 
-        console.log(hashedPassword)
         await User.create({
             username: req.body.username,
             email: req.body.email,
